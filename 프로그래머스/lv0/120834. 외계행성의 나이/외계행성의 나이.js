@@ -18,11 +18,14 @@ function solution(age) {
     // }
     // return answer;
     // 두 번쨰 풀이
-    let rule = ['a','b','c','d','e','f','g','h','i','j']
-    let answer = '';
-    let string = String(age);
-    for(el of string){
-        answer+=rule[el]
-    }
-    return answer
+    // let rule = ['a','b','c','d','e','f','g','h','i','j']
+    // let answer = '';
+    // let string = String(age);
+    // for(el of string){
+    //     answer+=rule[el]
+    // }
+    // return answer
+    // 다른 사람 풀이 중 괜찮았던 것
+    return age.toString().split("").map((v) => "abcdefghij"[v]).join("");
+
 }
