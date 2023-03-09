@@ -4,6 +4,7 @@ function solution(n) {
     for(i=1;i<=n;i++){
         if(n%i === 1){
             answer = i;
+            //break 가 없으면 시간이 얼마나 차이날까?
             break;
         }
     }
