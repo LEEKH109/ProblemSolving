@@ -1,6 +1,6 @@
 # [level 0] 외계어 사전 - 120869 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120869) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120869#) 
 
 ### 성능 요약
 
