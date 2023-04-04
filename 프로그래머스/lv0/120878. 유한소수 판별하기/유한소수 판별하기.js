@@ -10,7 +10,7 @@ function solution(a, b) {
     
 //     let factors = [];
 //     let divisor = 2;
-//     // while 반복문으로 소인수 분해 => 0(1) < 시간복잡도 < O(n)
+//     // while 반복문으로 소인수 분해 => 시간복잡도 O(log n)
 //     while (b >= 2) {
 //      if (b % divisor == 0) {
 //        factors.push(divisor);
