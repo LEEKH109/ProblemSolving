@@ -5,6 +5,7 @@ function solution(str) {
     // let secret = '*'.repeat(numLength-4)
     // return secret+open;
     // 두 번째 풀이=> 리팩토링
-    return '*'.repeat(str.length-4)+str.slice(-4);
-    
+    // return '*'.repeat(str.length-4)+str.slice(-4);
+    // 세번째 풀이 Array.fill이용
+    return [...str].fill("*",0,str.length-4).join("")
 }
