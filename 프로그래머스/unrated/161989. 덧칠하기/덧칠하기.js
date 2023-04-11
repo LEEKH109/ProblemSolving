@@ -1,4 +1,4 @@
-
+//내 풀이 -=> 시간 초과인 줄 알았는데 그냥 프로그래머스 문제였다.
 function solution(n, m, section) {
     let wall = Array(n).fill(true);
     let count = 0;
