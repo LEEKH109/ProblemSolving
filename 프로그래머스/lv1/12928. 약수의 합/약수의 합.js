@@ -14,4 +14,5 @@ function solution(n) {
     }
     i--;
     return (i === n/i) ? answer-i : answer;
+    
 }
