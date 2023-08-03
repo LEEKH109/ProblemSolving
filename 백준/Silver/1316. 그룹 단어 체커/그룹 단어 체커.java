@@ -20,7 +20,8 @@ public class Main {
             Set<String> strSet = new HashSet<>();
             for(int j = 0; j < strArr.length; j++) {
                 if(j > 0 && strArr[j].equals(strArr[j-1])) {
-                    continue;// 불 필요한 Set 호출 방지 
+                    continue;// 이 예외처리가 없다면 aaa 의 경우에도 이미 a가 추가되어있기에 toggle이
+                    //false로 바뀐다.
                 }
                 if(strSet.contains(strArr[j])) {
                     toggle = false;
