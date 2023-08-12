@@ -15,10 +15,11 @@ public class Main {
 
 		long minCut = 1; // 랜선의 최소 길이
 		long resultCut = 0;
+		long lanSum = 0;
 
 		while (minCut <= maxCut) {
 			long midCut = (minCut + maxCut) / 2;
-			long lanSum = 0;
+			lanSum = 0;
 
 			for (int tmp = 0; tmp < lanCnt; tmp++) {
 				lanSum += (tmpArr[tmp] / midCut);
