@@ -16,7 +16,7 @@
 // 꼭 코드 작성하면 배열 잘 받아지는지 테스트 해야된다
 
 import java.util.Scanner;
-// 기존 방식 최적화
+// 기존 방식 최적화+중복 연산 방지 조건 추가
 public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class Solution {
 			        boolean toggleX = true; // 가로 체크용 변수
 			        boolean toggleY = true; // 세로 체크용 변수
 			        
-			        for (int k = 0; k < targetLeng / 2; k++) {//절반으로 범위 제한
+			        for (int k = 0; k < targetLeng / 2 &&  (toggleX || toggleY); k++) {//절반으로 범위 제한
 			            // 가로 방향에서 회문이 아닌 것을 확인
 			            if (toggleX && tmpArr[i][j+k] != tmpArr[i][j+targetLeng-1-k]) {
 			                toggleX = false;
