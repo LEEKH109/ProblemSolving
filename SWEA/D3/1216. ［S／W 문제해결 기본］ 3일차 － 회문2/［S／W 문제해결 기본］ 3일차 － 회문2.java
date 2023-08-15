@@ -33,7 +33,7 @@ public class Solution {
 			}//입력 배열 처리 끝 
 			// 밑에 만들어둔 길이 반환 함수에 행을 순서대로 넣어서 검사합니다. 
             for (int x = 0; x < N; x++) {
-                maxLeng = Math.max(maxLeng, gingeo(tmpArr[x])); //나온 결과 값을 이전 까지의 회문최대 길이와 비교해줍니다. 
+                maxLeng = Math.max(maxLeng, gingeo(tmpArr[x], maxLeng)); //나온 결과 값을 이전 까지의 회문최대 길이와 비교해줍니다. 
             }
 
             // 밑에 만들어둔 길이 반환 함수에 열을 순서대로 넣어서 검사합니다. 
@@ -43,7 +43,7 @@ public class Solution {
                 for (int x = 0; x < N; x++) {
                     tmpColumn[x] = tmpArr[x][y];
                 }// 생성해줄 때 주의 해야 합니다. 
-                maxLeng = Math.max(maxLeng, gingeo(tmpColumn));//나온 결과 값을 이전 까지의 회문최대 길이와 비교해줍니다. 
+                maxLeng = Math.max(maxLeng, gingeo(tmpColumn, maxLeng));//나온 결과 값을 이전 까지의 회문최대 길이와 비교해줍니다. 
             }
 			
 			
@@ -66,15 +66,15 @@ public class Solution {
     }
 
     // 입력 받은 배열에서 가장 긴 회문의 길이를 반환하는 함수입니다. 
-    public static int gingeo(char[] arr) {
-        int max = 1; //왜 1이냐 알파벳 한칸 도 회문이라고 합니다. 
-        // 이 함수 내에서도 회문의 최대 길이는 계속 변하기 때문에 함수 내에서도 최댓값 여부를 계속 비교해 줘야 합니다.
+    public static int gingeo(char[] arr, int maxLeng) {
+        int max = maxLeng;
         for (int start = 0; start < arr.length; start++) {
-            for (int end = arr.length - 1; end > start; end--) {
-                if (arr[start] == arr[end] && palindromeMaja(arr, start, end)) {//매번 회문여부를 검사하는게 맞나 싶습니다. 
+        	 // 이 함수 내에서도 회문의 최대 길이는 계속 변하기 때문에 함수 내에서도 최댓값 여부를 계속 비교해 줘야 합니다.
+            for (int length = arr.length - start; length > max; length--) {
+                if (length + start <= arr.length && palindromeMaja(arr, start, start + length - 1)) {//매번 회문여부를 검사하는게 맞나 싶습니다. 
                 	//최적화하게되면 회문 판정여부를 최대한 덜 하게 만들어 봐야 할 것 같습니다.
-                    max = Math.max(max, end - start + 1);// 함수내의 회문 최대길이와 비교 
-                    break;  // 최대 길이를 찾았다면 다음 시작 지점으로 이동
+                    max = length;
+                    break;// 최대 길이를 찾았다면 다음 시작 지점으로 이동
                 }
             }
         }
