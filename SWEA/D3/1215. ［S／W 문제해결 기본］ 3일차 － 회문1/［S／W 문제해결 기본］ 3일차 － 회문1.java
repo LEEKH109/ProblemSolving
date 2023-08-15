@@ -16,58 +16,40 @@
 // 꼭 코드 작성하면 배열 잘 받아지는지 테스트 해야된다
 
 import java.util.Scanner;
-
+// 기존 방식 최적화
 public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = 8;
-		for(int tc = 1; tc <= 10; tc++) {
+		for (int tc = 1; tc <= 10; tc++) {
 			int targetLeng = sc.nextInt();
 			int cnt = 0;
-			char [][] tmpArr = new char [N][];//char가 메모리도 적게 들고, 비교문 만들기도 쉽다
-			for(int x = 0; x < N; x++) {
+			char[][] tmpArr = new char[N][];// char가 메모리도 적게 들고, 비교문 만들기도 쉽다
+			for (int x = 0; x < N; x++) {
 				tmpArr[x] = sc.next().toCharArray();
-			}//입력 끝
-			//방향 2갠데 델타 쓰는 것 도 좀 그르네요
-			//가로 순회입니다.
-			for(int y = 0; y < N; y++) {
-				for(int x = 0; x < N; x++) {
-					if(y+targetLeng <= N) {// 범위제한에 조심해야 합니다.
-						boolean toggle = true;
-						for(int i = 0; i < targetLeng; i++) {
-							if(tmpArr[x][y+i] != tmpArr[x][y+targetLeng-1-i]) {
-								toggle = false;
-								break;// 반복문을 정지하고 toggle을 false로 변경
-							}
-						}
-						if(toggle) {
-							cnt++;
-						}
-					}else {
-						continue;
-					}
-				}
-			}//이중 배열 가로 순회 끝
-			//세로 순회입니다.
-			for(int y = 0; y < N; y++) {
-				for(int x = 0; x < N; x++) {
-					if(x+targetLeng <= N) {
-						boolean toggle = true;
-						for(int i = 0; i < targetLeng; i++) {
-							if(tmpArr[x+i][y] != tmpArr[x+targetLeng-1-i][y]) {
-								toggle = false;
-								break;// 반복문을 정지하고 toggle을 false로 변경
-							}
-						}
-						if(toggle) {
-							cnt++;
-						}
-					}else {
-						continue;
-					}
-				}
-			}//이중 배열 세로 순회 끝
+			} // 입력 끝
+				// 방향 2갠데 델타 쓰는 것 도 좀 그르네요
+				// 이중 배열 순회입니다.
+			for (int i = 0; i < N; i++) {
+			    for (int j = 0; j < N - targetLeng + 1; j++) {
+			        boolean toggleX = true; // 가로 체크용 변수
+			        boolean toggleY = true; // 세로 체크용 변수
+			        
+			        for (int k = 0; k < targetLeng / 2; k++) {//절반으로 범위 제한
+			            // 가로 방향에서 회문이 아닌 것을 확인
+			            if (toggleX && tmpArr[i][j+k] != tmpArr[i][j+targetLeng-1-k]) {
+			                toggleX = false;
+			            }
+			            // 세로 방향에서 회문이 아닌 것을 확인
+			            if (toggleY && tmpArr[j+k][i] != tmpArr[j+targetLeng-1-k][i]) {
+			                toggleY = false;
+			            }
+			        }
+			        if (toggleX) cnt++;
+			        if (toggleY) cnt++;
+			    }
+			}//이중 배열 순회 끝 
 			System.out.println(String.format("#%d %d", tc, cnt));
-		}//테스트 케이스 반복 
-	}//main 함수
+		} // 테스트 케이스 반복
+	}// main 함수
 }
