@@ -19,7 +19,7 @@
 // 아니라면 다시 시작좌표와 같은 알파벳을 찾아서 이동합니다.
 // 이런식으로 반복해서 회문이 있다면 해당 회문의 길이를 없다면 -1를 반환하는 함수를 만들어서 사용해볼까 합니다.
 import java.util.Scanner;
-
+// **현재 최대 회문길이보다 길이가 작은 구간은 검사를 안하도록 수정**
 public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);//입력을 받을 스캐너 설정
@@ -35,7 +35,7 @@ public class Solution {
             for (int x = 0; x < N; x++) {
                 maxLeng = Math.max(maxLeng, gingeo(tmpArr[x], maxLeng)); //나온 결과 값을 이전 까지의 회문최대 길이와 비교해줍니다. 
             }
-
+            
             // 밑에 만들어둔 길이 반환 함수에 열을 순서대로 넣어서 검사합니다. 
             // 단, 열은 배열 단순 참조로 가져오기 힘드므로 임시 배열을 만들어서 넣어줍니다.
             for (int y = 0; y < N; y++) {
@@ -67,13 +67,16 @@ public class Solution {
 
     // 입력 받은 배열에서 가장 긴 회문의 길이를 반환하는 함수입니다. 
     public static int gingeo(char[] arr, int maxLeng) {
-        int max = maxLeng;
+        int max = maxLeng; // 이 함수를 총 200번 호출합니다. 이전 코드에서는 max 초기값을 1로 두었습니다만
+        // 불필요한 연산을 줄이기 위해 기존 회문의 최대 길이를 함수 실행시 받아와 밑에 구문에서 불피요한 연산을 막아줍니다.
         for (int start = 0; start < arr.length; start++) {
+        	 // 배열 시작부터 끝까지 다 시행하는 완전탐색입니다. 
         	 // 이 함수 내에서도 회문의 최대 길이는 계속 변하기 때문에 함수 내에서도 최댓값 여부를 계속 비교해 줘야 합니다.
-            for (int length = arr.length - start; length > max; length--) {
-                if (length + start <= arr.length && palindromeMaja(arr, start, start + length - 1)) {//매번 회문여부를 검사하는게 맞나 싶습니다. 
-                	//최적화하게되면 회문 판정여부를 최대한 덜 하게 만들어 봐야 할 것 같습니다.
-                    max = length;
+            for (int length = arr.length - start; length > max; length--) {// max값으로 범위를 제한합니다. 
+            	// 탐색 할 최대 길이를 설정하고 줄여 나갑니다. 위에서 받아온 max값을 기반으로 반복문을 덜 실행 할 수 있습니다. 
+                if (length + start <= arr.length && palindromeMaja(arr, start, start + length - 1)) {
+                	//이제 해당 구간이 회문이 맞는지 판별 함수에 집어 넣어 판별합니다.
+                    max = length;// 회문이 맞다고 true값이 반환된다면 최대값을 갱신해줍니다.
                     break;// 최대 길이를 찾았다면 다음 시작 지점으로 이동
                 }
             }
