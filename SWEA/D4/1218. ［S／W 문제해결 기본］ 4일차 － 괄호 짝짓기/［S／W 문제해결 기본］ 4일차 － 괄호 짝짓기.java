@@ -39,21 +39,19 @@ public class Solution {
 				Stack<Character> cStack = new Stack<>();// 문제에서 사용할 char 스택을 선언한다.
 				Loop: for (int i = 0; i < inputLeng; i++) {// 입력된 배열을 순회한다.
 					switch (tmpArr[i]) {
-					case '(':
-					case '[':
-					case '{':
-					case '<':
+					case '(': case '[': case '{': case '<': //여는 괄호는 그냥 스택에 더해주면 끝입니다.
 						cStack.push(tmpArr[i]);
 						break;
-					case ')':
+					case ')'://여기서부터 닫는 괄호라 중요합니다.
 						if (!cStack.isEmpty() && cStack.peek() == '(') {
-							cStack.pop();
+							cStack.pop();//같은 쌍이면 빼줍니다.
 						} else {
-							edge = false;
+							edge = false;//다른 방식은 cStack.push(tmpArr[i]); 해버려도 됩니다.
+							//결과적으로 스택의 길이가 0이 아니므로 동일한 결과가 나올 것 입니다.
 							break Loop;
 						}
 						break;
-					case ']':
+					case ']'://여기서부터는 동일한 로직입니다.
 						if (!cStack.isEmpty() && cStack.peek() == '[') {
 							cStack.pop();
 						} else {
@@ -77,12 +75,12 @@ public class Solution {
 							break Loop;
 						}
 						break;
-					default:
+					default://예외처리
 						break;
 					}
 				}
 				if (cStack.empty() && edge) {
-					result = true;
+					result = true;// 전부 참이면 길이가 0이라는 뜻입니다.
 				}
 			} // 입력 길이가 홀수면 이미 짝이 맞지 않은 것이므로 굳이 연산 할 필요 없다.
 			System.out.println(String.format("#%d %d", tc, result ? 1 : 0));
