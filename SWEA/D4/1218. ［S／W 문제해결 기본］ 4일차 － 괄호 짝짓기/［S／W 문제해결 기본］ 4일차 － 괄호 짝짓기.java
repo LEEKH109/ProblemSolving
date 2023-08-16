@@ -17,7 +17,9 @@
 // 여는 괄호의 입력의 경우 그냥 push해주면 충분
 // 닫는 괄호의 경우 비어있는 경우 pop하면 안되므로 스택이 비어있는지 확인
 // 스택에 가장 최신 값은 stack.peek으로 확인 / 따로 변수로 받아서 할까 했지만 굳이? 싶습니다.
-// 닫는 괄호일때 스택이 비어있는 경우 push해줍니다. => 여기서 고민, 그냥 이 순간에 정지 시켜도 되지 않나? 어차피 규칙이 깨진건데
+// 닫는 괄호일때 스택이 비어있는 경우 그냥 이 순간에 연산을 정지합니다. 어차피 규칙이 깨진거니까 걸러줍니다.
+// 만약 "}{", "][", ")(","><"도 닫는 걸로 치는 문제라면 다른 방식으로 접근해야 합니다.
+// 이 문제는 아니기 때문에 위에 처럼 그냥 합니다.
 // 최종적으로 모든 입력을 처리하고 스택이 비어있다면 유효성 체크에 통과 한 것이므로 1을 출력합니다.
 // 유효성은 BOOLEAN으로 관리합니다.
 // 입력 칸 수가 홀수이면 보나마나 유효성 체크가 실패이므로 연산을 패스합니다.
@@ -30,11 +32,12 @@ public class Solution {
 		for (int tc = 1; tc <= 10; tc++) {
 			int inputLeng = sc.nextInt();
 			boolean result = false;
+			boolean edge = true;
 			char[] tmpArr = new char[inputLeng];
 			tmpArr = sc.next().toCharArray();
 			if (inputLeng % 2 != 1) {// 작동 로직은 여기서부터
 				Stack<Character> cStack = new Stack<>();// 문제에서 사용할 char 스택을 선언한다.
-				for (int i = 0; i < inputLeng; i++) {// 입력된 배열을 순회한다.
+				Loop: for (int i = 0; i < inputLeng; i++) {// 입력된 배열을 순회한다.
 					switch (tmpArr[i]) {
 					case '(':
 					case '[':
@@ -46,35 +49,39 @@ public class Solution {
 						if (!cStack.isEmpty() && cStack.peek() == '(') {
 							cStack.pop();
 						} else {
-							cStack.push(tmpArr[i]);
+							edge = false;
+							break Loop;
 						}
 						break;
 					case ']':
 						if (!cStack.isEmpty() && cStack.peek() == '[') {
 							cStack.pop();
 						} else {
-							cStack.push(tmpArr[i]);
+							edge = false;
+							break Loop;
 						}
 						break;
 					case '}':
 						if (!cStack.isEmpty() && cStack.peek() == '{') {
 							cStack.pop();
 						} else {
-							cStack.push(tmpArr[i]);
+							edge = false;
+							break Loop;
 						}
 						break;
 					case '>':
 						if (!cStack.isEmpty() && cStack.peek() == '<') {
 							cStack.pop();
 						} else {
-							cStack.push(tmpArr[i]);
+							edge = false;
+							break Loop;
 						}
 						break;
 					default:
 						break;
 					}
 				}
-				if (cStack.empty()) {
+				if (cStack.empty() && edge) {
 					result = true;
 				}
 			} // 입력 길이가 홀수면 이미 짝이 맞지 않은 것이므로 굳이 연산 할 필요 없다.
