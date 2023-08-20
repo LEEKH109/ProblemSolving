@@ -9,10 +9,11 @@ public class Solution {
 			int startD = sc.nextInt();
 			int endM = sc.nextInt();
 			int endD = sc.nextInt();
-			int [] tmpArr = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-			for(int i = 0; i< 12; i++) {
-				tmpArr[i+1] += tmpArr[i];
-			}
+//			int [] tmpArr = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//			for(int i = 0; i< 12; i++) {
+//				tmpArr[i+1] += tmpArr[i];
+//			} // 이 과정 없이 하면 얼마나 차이날까?
+			int [] tmpArr = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 			int result = (tmpArr[endM-1]+endD) - (tmpArr[startM-1]+startD)+1;
 			System.out.println(String.format("#%d %d", tc, result));
 		}
