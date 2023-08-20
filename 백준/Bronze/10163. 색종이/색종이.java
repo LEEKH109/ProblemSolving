@@ -33,9 +33,11 @@ public class Main {
 		// 여기서 부터는 결과 출력 단
 		for(int p = 1; p <= paperCnt; p++) {
 			int result = 0;
-			for(int[] tmp : board) {
-				for(int el : tmp) {
-					if(el == p) result++;
+			for (int i = 0; i < 1001; i++) {
+				for (int j = 0; j < 1001; j++) {
+					if (board[i][j] == p) {
+						result++;
+					}
 				}
 			}
 			System.out.println(result);
