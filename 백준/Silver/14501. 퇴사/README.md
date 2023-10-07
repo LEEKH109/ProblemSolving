@@ -22,7 +22,7 @@
 
 <p>N = 7인 경우에 다음과 같은 상담 일정표를 보자.</p>
 
-<table class="table table-bordered" style="margin-left: 0px; margin-right: 0px;">
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th> </th>
