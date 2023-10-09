@@ -48,9 +48,8 @@ public class Main {
 				if(xd >=0 && xd < N && yd >= 0 && yd < M && arr[xd][yd] == 1 && !visited[xd][yd]) {
 					visited[xd][yd] = true;
 					queue.add(new int [] {xd,yd});
-					if(dist[xd][yd] == 0) {
-						dist[xd][yd] = dist[tmp[0]][tmp[1]]+1;
-					}
+						int tmpCnt  = dist[tmp[0]][tmp[1]]+1;
+						dist[xd][yd] = Math.max(dist[xd][yd], tmpCnt);
 				}
 			}
 		}
