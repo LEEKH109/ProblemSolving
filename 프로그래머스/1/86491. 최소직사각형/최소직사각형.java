@@ -38,6 +38,7 @@
 //         }
 //     }
 // }
+// 2차시도 카드 가로 세로 중 한 쪽의 길이가 항상 길거나 같게 설정 => 통과
 class Solution {
     public int solution(int[][] sizes) {
         int maxW = 0;
@@ -51,4 +52,3 @@ class Solution {
         return maxW * maxH;
     }
 }
-
