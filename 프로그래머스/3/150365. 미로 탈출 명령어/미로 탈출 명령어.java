@@ -1,53 +1,58 @@
 import java.util.*;
-
 class Solution {
-    static int sx, sy, ex, ey, len;
-    static int ln, lm;
-    static int[] dx = {1, 0, 0, -1};
-    static int[] dy = {0, -1, 1, 0};
-    static String[] di = {"d", "l", "r", "u"};
-    static String ans = null;
+    private static final int[] dx = {1, 0, 0, -1}; // 다운, 왼쪽, 오른쪽, 업
+    private static final int[] dy = {0, -1, 1, 0};
+    private static final char[] dirChars = {'d', 'l', 'r', 'u'};
+    
     public String solution(int n, int m, int x, int y, int r, int c, int k) {
-
-        sx = x; sy = y; ex = r; ey = c; len = k;
-        ln = n; lm = m;
-
-        // 가능 불가능 판별
-        if((Math.abs(sx-ex) + Math.abs(sy-ey)) % 2 != k%2) {
+        if (!isValidStart(x, y, r, c, k)) {
             return "impossible";
         }
 
-        if((Math.abs(sx-ex) + Math.abs(sy-ey)) > k) return "impossible";
-        dfs(sx, sy, new StringBuffer(""));
+        Stack<PathState> stack = new Stack<>();
+        stack.push(new PathState(x, y, "", k));
+        boolean[][][] visited = new boolean[n+1][m+1][k+1]; // 방문 상태를 저장
+        visited[x][y][k] = true;
 
-        return ans;
-    }
+        while (!stack.isEmpty()) {
+            PathState current = stack.pop();
 
-    public static void dfs(int cx, int cy, StringBuffer s) {
-        // 가지치기 1
-        if(ans != null) return;
-
-        if(s.length() == len && cx == ex && cy == ey) {
-            ans = s.toString();
-            return;
-        } else if(s.length() == len) return;
-
-        // 가지치기 2
-        int dist = Math.abs(ex-cx) + Math.abs(ey-cy);
-        if(len - s.length() < dist) return;
-
-
-        for(int i=0; i<4; ++i) {
-            int nx = cx + dx[i], ny = cy + dy[i];
-            if(nx < 1 || nx > ln || ny < 1 || ny > lm) {
+            if (current.remainingSteps == 0) {
+                if (current.x == r && current.y == c) {
+                    return current.path;
+                }
                 continue;
             }
 
-            s.append(di[i]);
+            for (int i = 3; i >= 0; i--) {
+                int nx = current.x + dx[i];
+                int ny = current.y + dy[i];
+                int remaining = current.remainingSteps - 1;
 
-            dfs(nx, ny, s);
-            s.delete(s.length()-1, s.length());
+                if (nx >= 1 && nx <= n && ny >= 1 && ny <= m && !visited[nx][ny][remaining]) {
+                    visited[nx][ny][remaining] = true;
+                    stack.push(new PathState(nx, ny, current.path + dirChars[i], remaining));
+                }
+            }
         }
 
+        return "impossible";
+    }
+
+    private boolean isValidStart(int x, int y, int r, int c, int k) {
+        int manhattan = Math.abs(r - x) + Math.abs(c - y);
+        return manhattan <= k && (k - manhattan) % 2 == 0;
+    }
+
+    static class PathState {
+        int x, y, remainingSteps;
+        String path;
+
+        PathState(int x, int y, String path, int remainingSteps) {
+            this.x = x;
+            this.y = y;
+            this.path = path;
+            this.remainingSteps = remainingSteps;
+        }
     }
 }
