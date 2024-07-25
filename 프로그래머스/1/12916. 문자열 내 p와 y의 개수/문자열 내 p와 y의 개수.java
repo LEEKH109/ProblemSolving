@@ -1,34 +1,22 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 class Solution {
     boolean solution(String s) {
-        // Ver.2
-        
-        int countP = 0;
-        int countY = 0;
-        
-        s = s.toLowerCase();
-        for (char ch : s.toCharArray()) {
-            if (ch == 'p') {
-                countP++;
-            } else if (ch == 'y') {
-                countY++;
-            }
-        }
+        int countP = countOccurrences(s, "p");
+        int countY = countOccurrences(s, "y");
         return countP == countY;
-        // Ver.1
-        // String[] tmp = s.split("");
-        // int countP = 0;
-        // int countY = 0;
-        // for(String el : tmp){
-        //     if(el.equals("p") || el.equals("P")){
-        //         countP++;
-        //     } else if(el.equals("y") || el.equals("Y")){
-        //         countY++;
-        //     } 
-        // }
-        // if(countP != countY){
-        //     return false;
-        // }else{
-        //     return true;
-        // }
+    }
+    
+    private int countOccurrences(String s, String ch) {
+        Pattern pattern = Pattern.compile(ch, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(s);
+        
+        int count = 0;
+        while (matcher.find()) {
+            count++;
+        }
+        
+        return count;
     }
 }
