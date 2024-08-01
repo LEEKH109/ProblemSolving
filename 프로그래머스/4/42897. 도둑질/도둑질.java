@@ -1,23 +1,25 @@
-// 집 도둑 문제
 import java.util.*;
 class Solution {
-    public int solution(int[] money) {
-        if (money.length == 1) return money[0];
+    public int solution(int[] nums) {
         
-        return Math.max(rob(Arrays.copyOfRange(money, 0, money.length - 1)),
-                        rob(Arrays.copyOfRange(money, 1, money.length)));
+        int n = nums.length;
+        if(n == 0) return 0;// 예외 처리1
+        if(n == 1) return nums[0];// 예외 처리2
+        int result2 = max(nums, 0, n - 2);// 첫 번째 집부터 마지막 집 바로 전까지
+        int result1 = max(nums, 1, n - 1);// 두 번째 집부터 마지막 집 까지
+
+        return Math.max(result1, result2);// 두 경우 중 최대값
     }
 
-    private int rob(int[] nums) {
-        if (nums.length == 0) return 0;
-        if (nums.length == 1) return nums[0];
-        if (nums.length == 2) return Math.max(nums[0], nums[1]);
-
-        nums[1] = Math.max(nums[0], nums[1]);
-        for (int i = 2; i < nums.length; i++) {
-            nums[i] = Math.max(nums[i - 1], nums[i - 2] + nums[i]);
+    private int max(int[] nums, int l, int r) {
+        int prev1 = 0;
+        int prev2 = 0;
+        for(int i = l; i <= r; i++) {
+            int tmp = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = tmp;
         }
 
-        return nums[nums.length - 1];
+        return prev1;
     }
 }
