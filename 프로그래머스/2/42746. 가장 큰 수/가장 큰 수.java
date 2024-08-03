@@ -3,15 +3,23 @@ import java.util.stream.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        String[] list = new String[numbers.length];
-        for(int i = 0; i < numbers.length; i++){
-            list[i] = String.valueOf(numbers[i]);
-        }
-        Arrays.sort(list, (o1,o2) -> (o2+o1).compareTo(o1+o2));
-        
-         if(list[0].equals("0")){
+        Integer[] numArray = Arrays.stream(numbers).boxed().toArray(Integer[]::new);
+
+        Arrays.sort(numArray, (a, b) -> {
+            long ab = Long.parseLong("" + a + b);
+            long ba = Long.parseLong("" + b + a);
+            return Long.compare(ba, ab);
+        });
+
+        if (numArray[0] == 0) {
             return "0";
         }
-        return Arrays.stream(list).collect(Collectors.joining());
+
+        StringBuilder answer = new StringBuilder();
+        for (int num : numArray) {
+            answer.append(num);
+        }
+
+        return answer.toString();
     }
 }
