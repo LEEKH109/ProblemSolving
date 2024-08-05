@@ -2,7 +2,6 @@
  //   | 1 0 1 1 | 4
  // 2 | 1 1 1 2 |
  //       3 4
- // 누적합으로 풀어보자 
 class Solution {
     public int solution(int m, int n, int[][] puddles) {
         int Big = 1000000007;
@@ -10,7 +9,7 @@ class Solution {
         dp[0][0] = 1;
  
         for (int[] puddle : puddles) {
-            dp[puddle[1] - 1][puddle[0] - 1] = -1;  // 수정된 부분
+            dp[puddle[1] - 1][puddle[0] - 1] = -1; 
         }
 
         for (int i = 0; i < n; i++) {
