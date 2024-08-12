@@ -1,17 +1,23 @@
 class Solution {
-    public int solution(int sticker[]) {
-        if(sticker.length == 1) return sticker[0];
-        if(sticker.length == 2) return Math.max(sticker[0], sticker[1]);
+    public int solution(int[] sticker) {
+        if (sticker.length == 1) return sticker[0];
+        if (sticker.length == 2) return Math.max(sticker[0], sticker[1]);
+
+        return Math.max(rob(sticker, 0, sticker.length - 2), rob(sticker, 1, sticker.length - 1));
+    }
+
+    private int rob(int[] sticker, int start, int end) {
+        if (start == end) return sticker[start];
         
-        int[][]dp = new int[2][sticker.length];
-        dp[0][0] = dp[0][1] = sticker[0];
-        dp[1][0] = 0; dp[1][1] = sticker[1];
-        
-        for(int i = 2; i < sticker.length-1; i++){
-            dp[0][i] = Math.max(dp[0][i-1], dp[0][i-2]+sticker[i]);
-            dp[1][i] = Math.max(dp[1][i-1], dp[1][i-2]+sticker[i]);
+        int twoBack = sticker[start];
+        int oneBack = Math.max(sticker[start], sticker[start + 1]);
+
+        for (int i = start + 2; i <= end; i++) {
+            int current = Math.max(oneBack, twoBack + sticker[i]);
+            twoBack = oneBack;
+            oneBack = current;
         }
-        dp[1][sticker.length-1] = Math.max(dp[1][sticker.length-2], dp[1][sticker.length-3]+sticker[sticker.length-1]);
-        return Math.max(dp[1][sticker.length-1], dp[0][sticker.length-2]);
+
+        return oneBack;
     }
 }
