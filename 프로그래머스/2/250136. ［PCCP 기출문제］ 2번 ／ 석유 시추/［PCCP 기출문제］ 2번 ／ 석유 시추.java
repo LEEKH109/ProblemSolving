@@ -1,3 +1,6 @@
+// 생각했던 방법
+// 1. 일단 줄 별로 팔고 각 점에서 bfs => 시간초과
+// 2. bfs 한 번만 해서 각 덩어리 크기랑 가로 범위만 체크해서 누적합으로 구하기 => 성공
 import java.util.*;
 
 public class Solution {
@@ -37,7 +40,8 @@ public class Solution {
             }
         }
 
-        // 열별로 석유량 계산
+        // 석유량 계산
+        // 지정 범위에 한꺼번에 크기 추가
         int[] oilAmounts = new int[m];
         for (int[] pocket : oil) {
             for (int col = pocket[1]; col <= pocket[2]; col++) {
@@ -46,7 +50,12 @@ public class Solution {
         }
 
         // 최대 석유량을 찾아 반환
-        int maxOil = Arrays.stream(oilAmounts).max().getAsInt();
+        int maxOil = 0;
+        for (int tmp : oilAmounts) {
+            if (tmp > maxOil) {
+                maxOil = tmp;
+            }
+        }
         return maxOil;
     }
 }
