@@ -1,14 +1,16 @@
 import java.util.*;
-import java.util.stream.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        Integer[] numArray = Arrays.stream(numbers).boxed().toArray(Integer[]::new);
+        Integer[] numArray = new Integer[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            numArray[i] = numbers[i];
+        }
 
         Arrays.sort(numArray, (a, b) -> {
-            long ab = Long.parseLong("" + a + b);
-            long ba = Long.parseLong("" + b + a);
-            return Long.compare(ba, ab);
+            int ab = Integer.parseInt("" + a + b);
+            int ba = Integer.parseInt("" + b + a);
+            return Integer.compare(ba, ab);
         });
 
         if (numArray[0] == 0) {
