@@ -1,10 +1,10 @@
 # [level 3] 매칭 점수 - 42893 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42893) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42893?language=javascript) 
 
 ### 성능 요약
 
-메모리: 78.4 MB, 시간: 14.39 ms
+메모리: 33.7 MB, 시간: 2.65 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 08월 18일 16:54:36
+2024년 08월 18일 17:02:41
 
 ### 문제 설명
 
