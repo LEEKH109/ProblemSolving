@@ -3,9 +3,15 @@
 // 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42893
 // [풀이] 
 // 노드 선언해서 하는 구현
-// 기본 점수 => 
+// 기본 점수 => 텍스트 중 검색어가 등장하는 횟수, 대소문자 구분 X => 소문자로 통일
+// 외부 링크수 => 다른 외부페이지 연결 수 a 태그
+// 링크 점수 => 기본점수 / 외부 링크 수, 실수 자료형, 계산 후 전파 시키기
+// 매칭 점수 => 기본점수 + 링크 점수
+// 페이지 정보 객체 선언하고, 기본 점수 계산 함수 나눠서 구현
+// 나머지 점수들을 순차 적으로 진행, 매칭 점수를 가장 마지막에 계산
 // 코드 속도 가독성 높이려면 정규표현식 둘둘 해야 되는 문제
-// 결국 기본 점수와 외부 링크수만 함수화해서 구분해서 돌리면 깔끔
+// 링크 점수를 전파할 때 불필요한 연산이 너무 많은 것 같은데 DP메모리제이션 할 방법이 생각이 안남
+// 배열 길이가 20 이하여서 가능한 풀이, 복잡도가 N^2이어서 배열 길이가 더 커지면 링크 점수 갱신하는 방식을 바꿔야 할 것 같다.
 // regex사용법 참고 링크 https://yunamom.tistory.com/224
 
 import java.util.*;
@@ -17,9 +23,7 @@ class Solution {
         Map<String, Page> pageMap = new HashMap<>();
         Pattern urlPattern = Pattern.compile("<meta property=\"og:url\" content=\"(.*?)\"/>");
         Pattern linkPattern = Pattern.compile("<a href=\"(.*?)\">");
-
         word = word.toLowerCase(); // 입력 단어에 대문자가 포함되는 경우가 있어서 소문자로 변환
-
         // 페이지 정보를 파싱하여 페이지 객체 생성 및 저장
         for (int i = 0; i < pages.length; i++) {
             // URL 추출
