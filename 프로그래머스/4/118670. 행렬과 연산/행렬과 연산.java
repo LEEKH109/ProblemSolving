@@ -22,18 +22,20 @@ class Solution {
             lastCol.add(row[c - 1]);
         }
 
-        for (String op : operations) {
-            if (op.equals("ShiftRow")) {
-                rows.addFirst(rows.removeLast());
-                firstCol.addFirst(firstCol.removeLast());
-                lastCol.addFirst(lastCol.removeLast());
-            } else if (op.equals("Rotate")) {
-                rows.getLast().addLast(lastCol.removeLast());
-                firstCol.addLast(rows.getLast().removeFirst());
-                rows.getFirst().addFirst(firstCol.removeFirst());
-                lastCol.addFirst(rows.getFirst().removeLast());
+        String lastOp = "";
+        int opCount = 0;
+
+        for (int i = 0; i < operations.length; i++) {
+            String op = operations[i];
+            if (op.equals(lastOp) || lastOp.equals("")) {
+                opCount++;
+            } else {
+                applyOperation(rows, firstCol, lastCol, lastOp, opCount, r, c);
+                opCount = 1;
             }
+            lastOp = op;
         }
+        applyOperation(rows, firstCol, lastCol, lastOp, opCount, r, c);  // Apply last accumulated operation
 
         int[][] result = new int[r][c];
         for (int i = 0; i < r; i++) {
@@ -46,5 +48,28 @@ class Solution {
         }
 
         return result;
+    }
+
+    private void applyOperation(Deque<Deque<Integer>> rows, Deque<Integer> firstCol, Deque<Integer> lastCol, String operation, int count, int r, int c) {
+        if (operation.equals("ShiftRow")) {
+            int shifts = count % r;
+            for (int i = 0; i < shifts; i++) {
+                rows.addFirst(rows.removeLast());
+                firstCol.addFirst(firstCol.removeLast());
+                lastCol.addFirst(lastCol.removeLast());
+            }
+        } else if (operation.equals("Rotate")) {
+            int rotations = count % (2 * (r + c - 2));
+            for (int i = 0; i < rotations; i++) {
+                rotateOperation(rows, firstCol, lastCol);
+            }
+        }
+    }
+
+    private void rotateOperation(Deque<Deque<Integer>> rows, Deque<Integer> firstCol, Deque<Integer> lastCol) {
+        rows.getLast().addLast(lastCol.removeLast());
+        firstCol.addLast(rows.getLast().removeFirst());
+        rows.getFirst().addFirst(firstCol.removeFirst());
+        lastCol.addFirst(rows.getFirst().removeLast());
     }
 }
