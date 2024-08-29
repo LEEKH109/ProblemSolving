@@ -1,26 +1,17 @@
 class Solution {
     boolean solution(String s) {
         char[] input = s.toCharArray();
-        //스택을 사용 할건데 '('만 저장하는 스택 생각해보면 스택도 필요없기는 하다 갯수로 카운팅 하면 되잖아
         int open = 0;
-        boolean empty = true;
-        for(int i = 0; i < input.length; i++){
-            if(input[i] == '('){
+        for (int i = 0; i < input.length; i++) {
+            if (input[i] == '(') {
                 open++;
-                empty = false;
-            }else if(!empty){
+            } else {
                 open--;
-                if(open == 0){
-                    empty = true;
+                if (open < 0) {
+                    return false; // ')'가 먼저 나오는 경우
                 }
-            }else{
-                return false;
             }
         }
-        if(open != 0){
-            return false;
-        }else{
-            return true;
-        }
+        return open == 0;
     }
 }
