@@ -1,3 +1,6 @@
+// 문제: 68936번 (쿼드압축 후 개수 세기)
+// 등급: Level 2
+// 링크: https://school.programmers.co.kr/learn/courses/30/lessons/68936
 // 1024 -> 512 -> 256 -> 128 -> 64 -> 32 -> 16 -> 8 -> 4 -> 2 -> 1
 // 1024 = 2^10
 // 2^10*2 + 2^9*2*2^2 + 2^8*2*2^4 + ~ 1*1*2^400? 
@@ -18,18 +21,18 @@ class Solution {
     
     public void dfs(int xs, int xe, int ys, int ye) {
         int tmp = input[xs][ys];
-        boolean isUniform = true;
+        boolean toggle = true;
 
         L: for (int i = xs; i < xe; i++) {
             for (int j = ys; j < ye; j++) {
                 if (input[i][j] != tmp) {
-                    isUniform = false;
+                    toggle = false;
                     break L;
                 }
             }
         }
 
-        if (isUniform) {
+        if (toggle) {
             if (tmp == 1) {
                 one++;
             } else {
