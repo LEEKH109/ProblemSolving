@@ -6,12 +6,15 @@ class Solution {
         int cnt = 0;
         int co = -30001;
         for(int[] el : routes){
-            if(co <= el[1] && co >= el[0]){
-                continue;
-            }else{
-                co = el[1];
-                cnt++;
-            }
+            if(co >= el[0]) continue;
+            co = el[1];
+            cnt++;
+            // if(co <= el[1] && co >= el[0]){
+            //     continue;
+            // }else{
+            //     co = el[1];
+            //     cnt++;
+            // }
         }
         return cnt;
     }
