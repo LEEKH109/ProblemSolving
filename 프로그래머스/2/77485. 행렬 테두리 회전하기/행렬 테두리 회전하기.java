@@ -19,8 +19,8 @@ class Solution {
     
     public int rotate(int[][] arr, int[] query) {
         int x1 = query[0] - 1, y1 = query[1] - 1, x2 = query[2] - 1, y2 = query[3] - 1;
-        int temp = arr[x1][y1];
-        int min = temp;
+        int tmp = arr[x1][y1];
+        int min = tmp;
 
         for (int i = x1; i < x2; i++) {
             arr[i][y1] = arr[i + 1][y1];
@@ -41,7 +41,7 @@ class Solution {
             arr[x1][i] = arr[x1][i - 1];
             min = Math.min(min, arr[x1][i]);
         }
-        arr[x1][y1 + 1] = temp;
+        arr[x1][y1 + 1] = tmp;
         return min;
     }
 }
