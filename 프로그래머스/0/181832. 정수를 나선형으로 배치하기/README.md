@@ -1,10 +1,10 @@
 # [level 0] 정수를 나선형으로 배치하기 - 181832 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181832?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181832) 
 
 ### 성능 요약
 
-메모리: 74.9 MB, 시간: 0.13 ms
+메모리: 91.3 MB, 시간: 0.09 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 08월 08일 11:14:48
+2024년 10월 23일 01:41:32
 
 ### 문제 설명
 
