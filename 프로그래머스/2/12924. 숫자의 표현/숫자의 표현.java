@@ -22,8 +22,8 @@ class Solution {
         int cnt = 0;
         int sum = 0;
         for(int i = 1; i <= n; i++){
+            if(n-sum <= 0) break;
             sum += i;
-            if(n-sum < 0) break;
             if((n-sum)%i == 0){
                 cnt++;
             }
