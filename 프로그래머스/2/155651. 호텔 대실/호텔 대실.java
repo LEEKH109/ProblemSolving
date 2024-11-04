@@ -34,19 +34,21 @@ class Solution {
     public int solution(String[][] book_time) {
         int[][] book_time_int = new int[book_time.length][2];
         for(int i = 0; i < book_time.length; i++){
-            int tmps = Integer.parseInt(book_time[i][0].substring(0,2))*60 
+            int s = Integer.parseInt(book_time[i][0].substring(0,2))*60 
                         + Integer.parseInt(book_time[i][0].substring(3,5));
-            int tmpe = Integer.parseInt(book_time[i][1].substring(0,2))*60 
+            int e = Integer.parseInt(book_time[i][1].substring(0,2))*60 
                         + Integer.parseInt(book_time[i][1].substring(3,5));
-            book_time_int[i][0] = tmps; book_time_int[i][1] = tmpe; 
+            book_time_int[i][0] = s; book_time_int[i][1] = e; 
         }
         Arrays.sort(book_time_int, (a,b) -> a[0]-b[0]);
         PriorityQueue<Integer> q = new PriorityQueue<>();
         for(int i = 0; i < book_time_int.length; i++){
-            if(!q.isEmpty() && q.peek() <= book_time_int[i][0]){
+            int s = book_time_int[i][0];
+            int e = book_time_int[i][1] + 10; 
+            if(!q.isEmpty() && q.peek()<=s){
                 q.poll();
             }
-            q.offer(book_time_int[i][1] + 10);
+            q.offer(e);
         }
         return q.size();
     }
