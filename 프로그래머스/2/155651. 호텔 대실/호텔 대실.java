@@ -26,7 +26,6 @@ class Solution {
                 list.add(book_time_int[i][1]+10);
             }
         }
-        
         return list.size();
     }
 }
