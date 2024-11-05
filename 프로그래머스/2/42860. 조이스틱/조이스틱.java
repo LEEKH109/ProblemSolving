@@ -10,7 +10,7 @@ class Solution {
     public int dfs(int nowIdx, int cnt, boolean[] visited, String name) {
         boolean toggle = true;
         int n = name.length();
-        int minCnt = Integer.MAX_VALUE;
+        int minCnt = 987654321;
 
         for (int i = 0; i < n; i++) {
             if (name.charAt(i) != 'A' && !visited[i]) {
